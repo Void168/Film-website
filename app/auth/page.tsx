@@ -1,23 +1,41 @@
 "use client";
 
-import { useCallback, useState } from "react";
 import axios from "axios";
+import { useCallback, useState } from "react";
+import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 
 import Image from "next/image";
 import Input from "@/app/components/input";
 
 const Auth = () => {
+  const router = useRouter();
+
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
 
-  const [variant, setVariant] = useState("");
+  const [variant, setVariant] = useState("login");
 
   const toggleVariant = useCallback(() => {
     setVariant((currentVariant) =>
       currentVariant === "login" ? "register" : "login"
     );
   }, []);
+
+const login = useCallback(async () => {
+  try {
+    await signIn("credentials", {
+      email,
+      password,
+      redirect: false,
+      callbackUrl: "/",
+    });
+    router.push('/')
+  } catch (error) {
+    console.log(error);
+  }
+}, [email, password, router]);
 
   const register = useCallback(async () => {
     try {
@@ -26,10 +44,12 @@ const Auth = () => {
         name,
         password,
       });
+
+      login();
     } catch (err) {
       console.log(err);
     }
-  }, [email, name, password]);
+  }, [email, name, password, login]);
 
   return (
     <div className="relative h-full w-full bg-main bg-no-repeat bg-center bg-fixed bg-cover">
@@ -66,7 +86,10 @@ const Auth = () => {
                 id="password"
                 value={password}
               />
-              <button className="bg-red-600 py-3 text-white rounded-md w-full mt-10 hover:bg-red-700 transition">
+              <button
+                onClick={variant === "login" ? login : register}
+                className="bg-red-600 py-3 text-white rounded-md w-full mt-10 hover:bg-red-700 transition"
+              >
                 {variant === "login" ? "Login" : "Sign up"}
               </button>
               <p className="text-neutral-500 mt-12">
