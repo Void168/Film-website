@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useState } from "react";
+import axios from "axios";
 
 import Image from "next/image";
 import Input from "@/app/components/input";
@@ -17,6 +18,18 @@ const Auth = () => {
       currentVariant === "login" ? "register" : "login"
     );
   }, []);
+
+  const register = useCallback(async () => {
+    try {
+      await axios.post("/api/register", {
+        email,
+        name,
+        password,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  }, [email, name, password]);
 
   return (
     <div className="relative h-full w-full bg-main bg-no-repeat bg-center bg-fixed bg-cover">
