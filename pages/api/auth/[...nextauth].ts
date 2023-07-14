@@ -8,14 +8,14 @@ import prismadb from "@/app/libs/prismadb";
 
 export const authOptions: AuthOptions = {
   providers: [
-    // GithubProvider({
-    //   clientId: process.env.GITHUB_ID || "",
-    //   clientSecret: process.env.GITHUB_SECRET || "",
-    // }),
-    // GoogleProvider({
-    //   clientId: process.env.GOOGLE_CLIENT_ID || "",
-    //   clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
-    // }),
+    GithubProvider({
+      clientId: process.env.GITHUB_ID as string,
+      clientSecret: process.env.GITHUB_SECRET as string,
+    }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID as string,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+    }),
     CredentialsProvider({
       name: "credentials",
       credentials: {
@@ -60,7 +60,7 @@ export const authOptions: AuthOptions = {
     signIn: "/auth",
   },
   debug: process.env.NODE_ENV === "development",
-  // adapter: PrismaAdapter(prismadb),
+  adapter: PrismaAdapter(prismadb),
   session: { strategy: "jwt" },
   jwt: {
     secret: process.env.NEXTAUTH_JWT_SECRET,
