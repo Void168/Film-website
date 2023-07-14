@@ -12,7 +12,7 @@ import { FcGoogle } from 'react-icons/fc'
 import { FaGithub } from 'react-icons/fa'
 
 const Auth = () => {
-  const router = useRouter();
+  const router = useRouter()
 
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
@@ -32,13 +32,13 @@ const login = useCallback(async () => {
       email,
       password,
       redirect: false,
-      callbackUrl: "/",
+      callbackUrl: "/profiles",
     });
-    router.push('/')
+    router.push('/profiles')
   } catch (error) {
     console.log(error);
   }
-}, [email, password, router]);
+}, [email, password]);
 
   const register = useCallback(async () => {
     try {
@@ -98,7 +98,9 @@ const login = useCallback(async () => {
               <div className="flex flex-row items-center gap-4 mt-8 justify-center">
                 <div
                   onClick={() =>
-                    signIn("google", { callbackUrl: "http://localhost:3000" })
+                    signIn("google", {
+                      callbackUrl: "http://localhost:3000/profiles",
+                    })
                   }
                   className="w-10 h-10 bg-white rounded-full flex items-center justify-center cursor-pointer hover:opacity-100 transition"
                 >
@@ -106,7 +108,9 @@ const login = useCallback(async () => {
                 </div>
                 <div
                   onClick={() =>
-                    signIn("github", { callbackUrl: "http://localhost:3000" })
+                    signIn("github", {
+                      callbackUrl: "http://localhost:3000/profiles",
+                    })
                   }
                   className="w-10 h-10 bg-white rounded-full flex items-center justify-center cursor-pointer hover:opacity-100 transition"
                 >

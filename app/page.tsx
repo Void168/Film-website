@@ -27,7 +27,10 @@ export default function Home() {
     <div>
       Netflix
       <p>{data?.name}</p>
-      <button onClick={() => signOut()} className="h-10 w-full bg-white">
+      <button
+        onClick={() => signOut({ callbackUrl: "/auth" })}
+        className="h-10 w-full bg-white"
+      >
         Logout
       </button>
     </div>
