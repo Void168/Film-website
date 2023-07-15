@@ -1,8 +1,8 @@
 "use client";
 
-import { getSession, signOut } from "next-auth/react";
+import { getSession } from "next-auth/react";
 import { NextPageContext } from "next";
-import useCurrentUser from "./hooks/useCurrentUser";
+import Navbar from "./components/navbar/Navbar";
 
 export async function getServerSideProps(context: NextPageContext) {
   const session = await getSession(context);
@@ -22,17 +22,9 @@ export async function getServerSideProps(context: NextPageContext) {
 }
 
 export default function Home() {
-  const { data } = useCurrentUser();
   return (
     <div>
-      Netflix
-      <p>{data?.name}</p>
-      <button
-        onClick={() => signOut({ callbackUrl: "/auth" })}
-        className="h-10 w-full bg-white"
-      >
-        Logout
-      </button>
+      <Navbar />
     </div>
   );
 }
