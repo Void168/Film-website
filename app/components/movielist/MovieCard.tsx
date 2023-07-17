@@ -3,6 +3,7 @@ import React from "react";
 
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import { PlayIcon } from "@heroicons/react/24/solid";
+import FavoriteButton from "../FavoriteButton";
 
 interface MovieCardProps {
   data: Record<string, any>;
@@ -48,6 +49,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ data }) => {
             >
               <ChevronDownIcon className="text-white group-hover/item:text-neutral-300 w-4 lg:w-6" />
             </div>
+            <FavoriteButton movieId={data?.id} />
           </div>
           <p className="text-green-400 font-semibold mt-4">
             New <span className="text-white">2023</span>
